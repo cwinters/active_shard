@@ -6,7 +6,7 @@ describe "rake" do
 
   before do
     Rake.application = subject
-    Rake.application.rake_require 'active_shard/rails/database'
+    Rake.application.rake_require 'active_shard/rails/database', $LOAD_PATH, []
     Rake::Task.define_task(:environment)
   end
 
