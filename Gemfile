@@ -7,4 +7,5 @@ group :development do
   gem "simplecov", "0.4.2"
   gem "rails", "~> 3.0.0"
   gem "sqlite3-ruby"
+  gem 'ruby-debug19'
 end

@@ -71,12 +71,13 @@ namespace :shards do
   namespace :migrate do
     # desc  'Rollbacks the database one migration and re migrate up (options: STEP=x, VERSION=x).'
     task :redo, [:shard_name] => :environment do |t, args|
+      shard_name = args[:shard_name]
       if ENV["VERSION"]
-        Rake::Task["shards:migrate:down"].invoke( *args.values )
-        Rake::Task["shards:migrate:up"].invoke( *args.values )
+        Rake::Task["shards:migrate:down"].invoke( shard_name )
+        Rake::Task["shards:migrate:up"].invoke( shard_name )
       else
-        Rake::Task["shards:rollback"].invoke( *args.values )
-        Rake::Task["shards:migrate"].invoke( *args.values )
+        Rake::Task["shards:rollback"].invoke( shard_name )
+        Rake::Task["shards:migrate"].invoke( shard_name )
       end
     end
 
