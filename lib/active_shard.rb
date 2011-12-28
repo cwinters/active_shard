@@ -171,7 +171,7 @@ module ActiveShard
     end
 
     def shards_by_schema( schema_name )
-      config.shards_by_schema( schema_name )
+      config.shards_by_schema( environment, schema_name )
     end
 
     def logger
