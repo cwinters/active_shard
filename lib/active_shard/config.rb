@@ -16,6 +16,10 @@ module ActiveShard
       shard_collection( environment ).by_schema( schema )
     end
 
+    def schemas( environment )
+      shard_collection( environment ).schemas
+    end
+
     def add_shard( environment, shard_definition )
       shard_collection( environment ).add_shard( shard_definition )
     end

@@ -64,7 +64,11 @@ module ActiveShard
         end
       end
 
+      describe "#schemas( :test )" do
+        it "should return 2 schemas" do
+          @config.schemas(:test).should eq([:data,:directory])
+        end
+      end
     end
   end
-
 end

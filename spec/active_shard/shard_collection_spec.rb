@@ -43,6 +43,10 @@ module ActiveShard
 
       it { should have( 5 ).shard_definitions }
 
+      describe "#schemas" do
+        it { should have( 2 ).schemas }
+      end
+
       describe "#by_schema( :data )" do
         subject { collection.by_schema( :data ) }
 

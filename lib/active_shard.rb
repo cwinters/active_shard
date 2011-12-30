@@ -9,6 +9,7 @@ module ActiveShard
   autoload :ShardCollection
   autoload :ShardDefinition
   autoload :ShardLookupHandler
+  autoload :TestFixtures
 
   class << self
 
@@ -172,6 +173,10 @@ module ActiveShard
 
     def shards_by_schema( schema_name )
       config.shards_by_schema( environment, schema_name )
+    end
+
+    def schemas
+      config.schemas( environment )
     end
 
     def logger

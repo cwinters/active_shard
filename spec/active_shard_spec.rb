@@ -6,4 +6,12 @@ describe ActiveShard do
     ActiveShard.environment = :environment
     ActiveShard.shards_by_schema(:schema)
   end
+
+  describe '#schemas' do
+    it 'should get schemas from config' do
+      ActiveShard.config.should_receive(:schemas).with(:environment)
+      ActiveShard.environment = :environment
+      ActiveShard.schemas
+    end
+  end
 end
