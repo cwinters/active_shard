@@ -81,6 +81,10 @@ module ActiveShard
 
         active_shard_name = shard_lookup.lookup_active_shard( schema_name )
         
+        connection_pool schema_name, active_shard_name
+      end
+
+      def connection_pool( schema_name, active_shard_name = nil )
         ( active_shard_name.nil? ?
             get_schema_pool_for( schema_name ) :
             connection_pools[ connection_pool_id( schema_name, active_shard_name ) ] )
