@@ -13,8 +13,17 @@ module ActiveShard
         )
       end
 
+      def reset!
+        Fixtures.reset_cache
+        @by_schema = {}
+      end
+
       def by_schema
         @by_schema ||= {}
+      end
+
+      def schemas
+        by_schema.values
       end
 
       def [](key)
@@ -23,7 +32,11 @@ module ActiveShard
     end
 
     class Schema
+      attr_reader :schema
+
       def initialize(schema, schema_fixtures_dir, *args)
+        @schema = schema
+
         shards = ActiveShard.shards_by_schema(schema).map{|s| s.name.to_sym} & Dir.entries(schema_fixtures_dir).map(&:to_sym)
 
         self.by_shard.merge!(
@@ -38,20 +51,33 @@ module ActiveShard
         @by_shard ||= {}
       end
 
+      def shards
+        by_shard.values
+      end
+
       def [](key)
         by_shard[key]
       end
     end
 
     class Shard
+      attr_reader :schema
+      attr_reader :shard
+
       def initialize(schema, shard, shard_fixtures_dir, *args)
-        @connection = ::ActiveRecord::Base.connection_handler.connection_pool(schema,shard).connection
+        @schema = schema
+        @shard = shard
+
         @fixtures_dir = shard_fixtures_dir
         @fixture_names = Dir[File.join(@fixtures_dir, '*.yml')].map {|f| File.basename(f, '.yml') }
 
         @fixtures = ::Fixtures.create_fixtures(@fixtures_dir, @fixture_names, *args) do
-          @connection
+          connection
         end
+      end
+
+      def connection
+        @connection ||= ::ActiveRecord::Base.connection_handler.connection_pool(@schema,@shard).connection
       end
     end
   end
