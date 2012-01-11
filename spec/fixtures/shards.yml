@@ -39,5 +39,3 @@ development:
       encoding: utf8
       database: db1_db_development
       username: root
-
-
