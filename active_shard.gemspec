@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.files               = Dir[ 'README.md', 'lib/**/*' ]
   s.require_path        = 'lib'
 
-  s.add_dependency      "activesupport", "~> 3.0.0"
+  s.add_dependency      "activesupport", ">= 3.2.9"
 end
